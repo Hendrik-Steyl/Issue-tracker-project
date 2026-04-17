@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Tracker - Admin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Project Architect Dashboard</h1>
+        <p>Status: <span id="storage-status">Checking Storage...</span></p>
+        
+        <div class="admin-controls">
+            <h2>Infrastructure Tools</h2>
+            <button onclick="seedDatabase()">Seed Initial Data (10+ Issues)</button>
+            <button onclick="clearDatabase()" class="danger">Clear All Data</button>
+        </div>
+
+        <div id="data-preview">
+            <h3>System Data Models Preview</h3>
+            <pre id="json-display">Click seed to view data structure...</pre>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
