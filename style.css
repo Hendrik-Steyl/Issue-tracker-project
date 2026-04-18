@@ -2,11 +2,11 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f7f6;
     color: #333;
-    padding: 20px;
+    padding: 200px;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 1000px;/*Positions the entire interface somewhat in the middle of the page*/
     margin: auto;
     background: white;
     padding: 30px;
@@ -48,7 +48,7 @@ hr {
 
 button {
     padding: 10px 15px;
-    cursor: pointer;
+    cursor: pointer;/*makes the cursor change into a hand when hovering*/
     background: #3498db;
     color: white;
     border: none;
