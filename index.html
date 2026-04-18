@@ -30,12 +30,13 @@
             <h1>Project Architect Dashboard</h1>
             <button onclick="handleLogout()" class="danger">Logout</button>
         </div>
-        <p>Status: <span id="storage-status">Checking Storage...</span></p>
-        
+        <p>Status: <span id="storage-status">Checking Storage...</span></p> 
+        <!-- span works similar to div where 
+        it just provides a container to apply an attribute to-->
         <div class="admin-controls">
             <h2>Infrastructure Tools</h2>
             <button onclick="seedDatabase()">Seed Initial Data (10+ Issues)</button>
-            <button onclick="clearDatabase()" class="danger">Clear All Data</button>
+            <button onclick="clearDatabase()" class="danger">Clear All Data</button><!--the class doesnt realy do anything practical it just changes the appearance-->
         </div>
 
         <div id="data-preview">
@@ -44,6 +45,6 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    
 </body>
 </html>
