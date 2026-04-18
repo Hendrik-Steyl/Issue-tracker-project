@@ -72,6 +72,8 @@ function seedDatabase() {
             actualDate: "",
             resolutionSummary: ""
         });
+        /* i used ai to generate the data for the bugs and it just creates a simple loop that 
+        creates 10 bugs with different attributes based on the loop index*/
     }
     saveToStorage("bugs", initialBugs);
     saveToStorage("people", PEOPLE);
