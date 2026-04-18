@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Tracker - Admin</title>
+    <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+
+    <div id="login-screen" class="container">
+        <h1>Admin Login</h1>
+        <p>Please enter your credentials to manage issues.</p>
+        <hr>
+        <div class="form-group">
+            <label>Username:</label>
+            <input type="text" id="admin-user" placeholder="Enter 'admin'">
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" id="admin-pass" placeholder="Enter '1234'">
+        </div>
+        <button onclick="handleLogin()">Login</button>
+        <p id="login-error" style="color: red; display: none;">Invalid username or password!</p>
+    </div>
+
+    <div id="main-app" class="container" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Project Architect Dashboard</h1>
+            <button onclick="handleLogout()" class="danger">Logout</button>
+        </div>
+        <p>Status: <span id="storage-status">Checking Storage...</span></p>
+        
+        <div class="admin-controls">
+            <h2>Infrastructure Tools</h2>
+            <button onclick="seedDatabase()">Seed Initial Data (10+ Issues)</button>
+            <button onclick="clearDatabase()" class="danger">Clear All Data</button>
+        </div>
+
+        <div id="data-preview">
+            <h3>System Data Models Preview</h3>
+            <pre id="json-display">Click seed to view data structure...</pre>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
