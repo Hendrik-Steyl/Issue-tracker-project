@@ -20,9 +20,9 @@ function handleLogin() {
 }
 
 function handleLogout() {
-    sessionStorage.setItem('isLoggedIn');
-    //localStorage.removeItem('isLoggedIn');
+    sessionStorage.removeItem('isLoggedIn');
     location.reload();
+}
 }
 
 function showApp() {
