@@ -140,20 +140,7 @@ function updateStatus() {
 // TRACKER (Forms & Logic)
 // ============================================
 
-function populatePeopleDropdown() {
-    const people = getFromStorage('people');
-    const source = people.length > 0 ? people : PEOPLE; // ✅ fallback
-    const dropdown = document.getElementById('assignedTo');
-    if (!dropdown) return;
 
-    dropdown.innerHTML = '<option value="">Select team member...</option>';
-    source.forEach(person => {
-        const option = document.createElement('option');
-        option.value = person.username;
-        option.textContent = `${person.name} ${person.surname} (${person.username})`;
-        dropdown.appendChild(option);
-    });
-}
 
 function populatePeopleDropdown() {
     const people = getFromStorage('people');
