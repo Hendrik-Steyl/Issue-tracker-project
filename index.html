@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Tracker • DevFlow</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- LOGIN SCREEN -->
+    <div id="login-screen" class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo">
+                    <span class="logo-icon">🐛</span>
+                    <span class="logo-text">BugTracker</span>
+                </div>
+                <p class="login-subtitle">Admin Access Only</p>
+            </div>
+            <div class="login-body">
+                <div class="input-group-custom">
+                    <label>Username</label>
+                    <input type="text" id="admin-user" class="form-control-lg" placeholder="admin">
+                </div>
+                <div class="input-group-custom">
+                    <label>Password</label>
+                    <input type="password" id="admin-pass" class="form-control-lg" placeholder="••••">
+                </div>
+                <button onclick="handleLogin()" class="btn-login">
+                    <span>Sign In</span>
+                    <span class="arrow">→</span>
+                </button>
+                <p id="login-error" class="error-message">Invalid credentials</p>
+            </div>
+            <div class="login-footer">
+                <span>Demo: admin / 1234</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APPLICATION -->
+    <div id="main-app" class="app-container" style="display: none;">
+        
+        <!-- Top Navigation Bar -->
+        <nav class="top-nav">
+            <div class="nav-brand">
+                <span class="brand-icon">🐛</span> 
+                <span class="brand-text">BugTracker</span>
+                <span class="version-badge">v2.0</span>
+            </div>
+            <div class="nav-center">
+                <div class="stats-pill">
+                    <span class="stat-label">Storage</span>
+                    <span id="storage-status" class="stat-value">Active</span>
+                </div>
+            </div>
+            <div class="nav-actions">
+                <button onclick="handleLogout()" class="btn-logout">
+                    <span>Logout</span>
+                </button>
+            </div>
+        </nav>
+
+         <!-- span works similar to div where 
+        it just provides a container to apply an attribute to-->
+
+        <!-- Main Content Area - Three Column Layout -->
+        <div class="main-content">
+            
+            <!-- LEFT COLUMN: Create Issue -->
+            <div class="column-left">
+                <div class="column-card">
+                    <div class="card-header-custom">
+                        <h3>➕ New Issue</h3>
+                        <span class="header-badge">Create</span>
+                    </div>
+                    <div class="card-body-custom">
+                        <div class="form-group-custom">
+                            <label>Summary <span class="required">*</span></label>
+                            <input type="text" id="summary" class="form-control-custom" placeholder="Brief bug description...">
+                        </div>
+                        
+                        <div class="form-group-custom">
+                            <label>Description</label>
+                            <textarea id="description" class="form-control-custom" rows="3" placeholder="Detailed explanation..."></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group-custom half">
+                                <label>Priority</label>
+                                <select id="priority" class="form-select-custom">
+                                    <option value="">Select</option>
+                                    <option value="low">🟢 Low</option>
+                                    <option value="medium">🟡 Medium</option>
+                                    <option value="high">🔴 High</option>
+                                </select>
+                            </div>
+                            <div class="form-group-custom half">
+                                <label>Target Date <span class="required">*</span></label>
+                                <input type="date" id="targetDate" class="form-control-custom">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group-custom">
+                            <label>Assign To</label>
+                            <select id="assignedTo" class="form-select-custom"></select>
+                        </div>
+                        
+                        <button onclick="createIssue()" class="btn-primary-custom">
+                            <span>Create Issue</span>
+                        </button>
+                        <p id="form-error" class="error-text">Please fill all required fields</p>
+                    </div>
+                </div>
+                
+                <!-- Admin Tools Mini Card -->
+                <div class="column-card admin-card">
+                    <div class="card-header-custom">
+                        <h3>⚙️ Admin Tools</h3>
+                    </div>
+                    <div class="card-body-custom">
+                        <div class="admin-buttons">
+                            <button onclick="seedDatabase()" class="btn-secondary-custom">
+                                <span>🌱 Seed 10+ Issues</span>
+                            </button>
+                            <button onclick="clearDatabase()" class="btn-danger-custom">
+                                <span>🗑️ Clear All Data</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- MIDDLE COLUMN: Dashboard List -->
+            <div class="column-middle">
+                <div class="column-card full-height">
+                    <div class="card-header-custom">
+                        <h3>📋 All Issues</h3>
+                        <button id="nav-refresh" class="btn-icon">
+                            <span>🔄</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Filters -->
+                    <div class="filters-bar">
+                        <select id="nav-status" class="filter-select">
+                            <option value="">All Status</option>
+                            <option value="open">Open</option>
+                            <option value="resolved">Resolved</option>
+                            <option value="overdue">Overdue</option>
+                        </select>
+                        <select id="nav-priority" class="filter-select">
+                            <option value="">All Priority</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                        <input type="text" id="nav-search" class="filter-search" placeholder="🔍 Search...">
+                    </div>
+                    
+                    <div class="card-body-custom scrollable">
+                        <div id="nav-empty" class="empty-state">
+                            <span class="empty-icon">📭</span>
+                            <p>No issues found</p>
+                            <small>Use "Seed 10+ Issues" to load test data</small>
+                        </div>
+                        
+                        <!-- Issue List View -->
+                        <div id="nav-list">
+                            <div id="nav-tbody" class="issue-list"></div>
+                        </div>
+                        
+                        <!-- Issue Detail View -->
+                        <div id="nav-detail" class="detail-view" style="display:none;">
+                            <button id="nav-back" class="btn-back">← Back to List</button>
+                            <div id="nav-detail-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- RIGHT COLUMN: Data Preview -->
+            <div class="column-right">
+                <div class="column-card">
+                    <div class="card-header-custom">
+                        <h3>📊 Data Preview</h3>
+                        <span class="header-badge">JSON</span>
+                    </div>
+                    <div class="card-body-custom">
+                        <pre id="json-display" class="json-preview">Click "Seed 10+ Issues" to view data structure...</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Issue Modal -->
+    <div class="modal fade" id="editIssueModal" tabindex="-1" 
+         data-bs-backdrop="static" 
+         data-bs-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content-custom">
+                <div class="modal-header-custom">
+                    <h3>✏️ Edit Issue</h3>
+                    <button type="button" class="btn-close-custom" data-bs-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body-custom">
+                    <input type="hidden" id="edit-id">
+                    <div class="modal-grid">
+                        <div class="modal-col">
+                            <div class="form-group-custom">
+                                <label>Summary</label>
+                                <input type="text" id="edit-summary" class="form-control-custom">
+                            </div>
+                            <div class="form-group-custom">
+                                <label>Description</label>
+                                <textarea id="edit-description" class="form-control-custom" rows="3"></textarea>
+                            </div>
+                            <div class="form-group-custom">
+                                <label>Resolution Summary</label>
+                                <textarea id="edit-resolution" class="form-control-custom" rows="2"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-col">
+                            <div class="form-group-custom">
+                                <label>Status</label>
+                                <select id="edit-status" class="form-select-custom">
+                                    <option value="open">Open</option>
+                                    <option value="resolved">Resolved</option>
+                                    <option value="overdue">Overdue</option>
+                                </select>
+                            </div>
+                            <div class="form-group-custom">
+                                <label>Priority</label>
+                                <select id="edit-priority" class="form-select-custom">
+                                    <option value="low">🟢 Low</option>
+                                    <option value="medium">🟡 Medium</option>
+                                    <option value="high">🔴 High</option>
+                                </select>
+                            </div>
+                            <div class="form-group-custom">
+                                <label>Assign To</label>
+                                <select id="edit-assignedTo" class="form-select-custom"></select>
+                            </div>
+                            <div class="form-group-custom">
+                                <label>Target Date</label>
+                                <input type="date" id="edit-targetDate" class="form-control-custom">
+                            </div>
+                            <div class="form-group-custom">
+                                <label>Actual Resolution</label>
+                                <input type="date" id="edit-actualDate" class="form-control-custom">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer-custom">
+                    <button type="button" class="btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn-save" onclick="saveEditedIssue()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
