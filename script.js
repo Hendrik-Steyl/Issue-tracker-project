@@ -11,8 +11,8 @@ function handleLogin() {
     const pass = document.getElementById('admin-pass').value;
 
     if (user === 'admin' && pass === '1234') {
-        sessionStorage.setItem('isLoggedIn');
-        //localStorage.setItem('isLoggedIn');
+        sessionStorage.setItem('isLoggedIn','true');
+        //localStorage.setItem('isLoggedIn','true');
         showApp();
     } else {
         document.getElementById('login-error').style.display = 'block';
@@ -20,7 +20,7 @@ function handleLogin() {
 }
 
 function handleLogout() {
-    sessionStorage.setItem('isLoggedIn', 'true');
+    sessionStorage.setItem('isLoggedIn');
     //localStorage.removeItem('isLoggedIn');
     location.reload();
 }
