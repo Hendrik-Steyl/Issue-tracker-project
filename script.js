@@ -11,8 +11,8 @@ function handleLogin() {
     const pass = document.getElementById('admin-pass').value;
 
     if (user === 'admin' && pass === '1234') {
-        sessionStorage.setItem('isLoggedIn', 'true');
-        //localStorage.setItem('isLoggedIn', 'true');
+        sessionStorage.setItem('isLoggedIn');
+        //localStorage.setItem('isLoggedIn');
         showApp();
     } else {
         document.getElementById('login-error').style.display = 'block';
