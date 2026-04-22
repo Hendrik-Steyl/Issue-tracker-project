@@ -16,7 +16,7 @@ function handleLogin() {
     } else {
         document.getElementById('login-error').style.display = 'block';
     }
-}
+
 
 function handleLogout() {
     sessionStorage.removeItem('isLoggedIn');
