@@ -22,7 +22,7 @@ function handleLogout() {
     sessionStorage.removeItem('isLoggedIn');
     location.reload();
 }
-}
+
 
 function showApp() {
     document.getElementById('login-screen').style.display = 'none';
